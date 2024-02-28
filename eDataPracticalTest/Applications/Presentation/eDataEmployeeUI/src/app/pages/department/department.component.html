@@ -1,0 +1,155 @@
+
+
+<div class="row">
+  <div class="col-xl-4 col-12">
+
+    <div class="card shadow">
+      @if(isLoaded)
+      {
+
+      <div class="card-header p-0 d-flex justify-content-between">
+
+        <div class="align-self-center">
+          <span class="text-dark fw-bold ms-3">Departments</span>
+        </div>
+
+        <div class="card-action">
+          <button data-bs-toggle="modal" data-bs-target="#action-model-modal" (click)="OpenAction()"
+                  class="btn btn-outline-dark px-3 border-0 rounded-0 rounded-top-3 d-flex align-items-center">
+            <span class="btn-inner mx-1">
+              <i class="bi bi-plus-square"></i>
+            </span>
+            {{'New'}}
+          </button>
+        </div>
+      </div>
+      <!--<app-regulator class="position-sticky" title="Departments Table"
+                 [list]="departments" (valueChange)="value($event)"></app-regulator>-->
+
+      <app-filter [list]="List" [(entities)]="_filterList"></app-filter>
+
+
+      <div class="card-body p-0" style="min-height:9rem">
+
+
+
+        <div class="table-responsive" style="max-height:70vh;">
+          <table class="table table-hover w-100">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th class="text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              @for(item of _valueList; track item;)
+              {
+              <tr>
+                <td>{{item.name}}</td>
+
+                <td class="d-flex justify-content-center">
+                  <button class="btn btn-icon btn-soft-light ms-3 btn-sm border-0" (click)="OpenAction(item.id)"
+                          data-bs-toggle="modal" data-bs-target="#action-model-modal">
+                    <span class="btn-inner">
+                      <i class="bi bi-pencil-square"></i>
+                    </span>
+                  </button>
+
+                  <button class="btn btn-icon btn-soft-danger ms-3 btn-sm border-0" (click)="OpenAction(item.id!)"
+                          data-bs-toggle="modal" data-bs-target="#delete-model-modal">
+                    <span class="btn-inner">
+                      <i class="bi bi-trash3 text-danger"></i>
+                    </span>
+                  </button>
+                </td>
+
+              </tr>
+              }
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+      <div class="card-footer py-1">
+        <app-paginator [list]="_filterList" (entitiesChange)="value($event)"></app-paginator>
+      </div>
+
+      }
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="action-model-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{isAdd?'Add':'Edit' }} Department</h5>
+      </div>
+      <form class="was-validated" #newForm="ngForm" (ngSubmit)="Action(newForm)">
+        <div class="modal-body">
+          <div class="form-group ">
+            <input class="form-control" autocomplete="none" id="name"
+                   placeholder="name" required="" type='text'
+                   #name [(ngModel)]="_model.name" maxlength="60"
+                   name="name" />
+            <div class="text-danger" *ngIf="(name.value != null && name.value!.startsWith(' '))">
+              {{'whitespace invalid to start text' }}
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-dark">
+            {{ isAdd?'Add':'Edit' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="delete-model-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content" style="max-height:50%">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Department</h5>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush" role="grid">
+            <thead class="thead-light">
+              <tr>
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <h6>{{_model.name}}</h6>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        {{'Please ensure then take action!'}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-danger" data-bs-dismiss="modal" (click)="Delete()">Delete</button>
+      </div>
+
+    </div>
+  </div>
+</div>

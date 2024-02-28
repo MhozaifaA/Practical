@@ -1,0 +1,43 @@
+
+<main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+  <div class="container">
+    <div class="card login-card">
+      <div class="row">
+
+        <div class="col-md-6">
+          <img src="assets/images/login.jpg" alt="login" class="login-card-img">
+        </div>
+
+        <div class="col-md-6">
+          <div class="card-body">
+
+            <div class="brand-wrapper">
+              <img src="assets/images/logo.png" alt="logo" class="logo" >
+            </div>
+
+            <p class="login-card-description">Sign into your account</p>
+            <form class="was-validated" #loginForm="ngForm" (ngSubmit)="Login(loginForm)">
+
+              <div class="form-group">
+                <input type="text" required
+                        name="username"
+                       [(ngModel)]="model.userName"  class="form-control" placeholder="User name">
+              </div>
+
+              <div class="form-group mb-4">
+                <input type="password" required  name="password"
+                       [(ngModel)]="model.password"  class="form-control" placeholder="●●●●●●●●">
+              </div>
+              <input name="login" id="login" class="btn btn-block login-btn mb-4 w-100" type="submit" value="Login">
+
+            </form>
+            <nav class="login-card-footer-nav justify-content-between d-flex">
+              <a href="https://www.edata.digital/terms-and-coniditions" >Terms & Conditions.</a>
+              <a href="https://www.edata.digital/privacy-policy" >Privacy policy</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

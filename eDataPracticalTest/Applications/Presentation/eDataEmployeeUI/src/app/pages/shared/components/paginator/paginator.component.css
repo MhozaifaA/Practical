@@ -1,0 +1,18 @@
+
+/*.pagefont {
+  font-size: 1.3rem;
+}*/
+
+ul {
+  list-style-type: none !important;
+}
+
+.btn-primary:hover,
+.btn-primary {
+  --bs-btn-bg: var(--bs-dark);
+}
+
+.btn:hover {
+  color: white;
+  background-color: gray
+}
